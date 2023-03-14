@@ -1,0 +1,30 @@
+   - name: Create a new file system with a custom UUID
+     filesystem:
+         fstype: ext4
+         dev: /dev/mapper/vg_mirror-lv_mirror
+
+   - name: Change the uuid of the logical volume
+     raw: tune2fs /dev/mapper/vg_mirror-lv_mirror -U "{{fs_uuid}}"
+
+
+   - name: Create Mount Point
+     file:
+       path: "{{ mount_point }}"
+       state: directory
+
+   - name: Mount Filesystem
+     mount:
+       src: "UUID={{ fs_uuid }}"
+       path: "{{ mount_point }}"
+       state: mounted
+       fstype: ext4
+       opts: defaults
+     notify:
+       - Check mount status
+
+   - name: Add Filesystem to fstab
+     lineinfile:
+       path: /etc/fstab
+       line: "UUID={{ fs_uuid }} {{ mount_point }} ext4 defaults 0 0"
+       state: present
+

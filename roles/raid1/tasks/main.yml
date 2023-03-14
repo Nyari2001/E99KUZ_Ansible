@@ -1,0 +1,23 @@
+   - name: Create Physical Volumes
+     parted:
+      device: "{{ item }}"
+      number: 1
+      state: present
+      label: gpt
+      name: "vg_mirror"
+      unit: MiB
+      part_end: 100%
+     with_items:
+        - /dev/sdb
+        - /dev/sdc
+        - /dev/sdd
+        
+
+   - name: Create Volume Group
+     lvg:
+      vg: "vg_mirror"
+      pvs: "{{ ['/dev/sdb1', '/dev/sdc1', '/dev/sdd1'] }}"
+      state: present
+      
+   - name: Create logical volume
+     raw: lvcreate -L 100M -m 2 -n lv_mirror vg_mirror

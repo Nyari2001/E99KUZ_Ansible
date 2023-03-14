@@ -1,0 +1,8 @@
+- name: Create users
+  user:
+    name: "{{inventory_hostname}}{{ item.name }}"
+    password: "{{ item.password }}"
+    home: "{{mount_point}}/{{inventory_hostname}}{{item.name}}"
+    createhome: yes
+    state: present
+  with_items: "{{ users }}"

@@ -1,0 +1,5 @@
+- name: Update motd file
+  lineinfile:
+     path: /etc/motd
+     line: "{{motd_contents}}"
+     state: present
