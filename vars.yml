@@ -1,0 +1,26 @@
+ users:
+      - name: .user1
+        password: password1
+      - name: .user2
+        password: password2
+      - name: .user3
+        password: password3
+      - name: .user4
+        password: password4
+      - name: .user5
+        password: password5
+      - name: .user6
+        password: password6
+      - name: .user7
+        password: password7
+      - name: .user8
+        password: password8
+      - name: .user9
+        password: password9
+      - name: .user10
+        password: password10
+
+ fs_uuid: "123e4567-e89b-12d3-a456-426655440000"
+ mount_point: /data/speci
+ motd_contents: "Welcome in the server!"
+
